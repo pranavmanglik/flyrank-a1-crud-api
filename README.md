@@ -53,6 +53,12 @@ curl -i http://localhost:8000/tasks
 
 After the restart, it returned the three starter tasks: “Read the assignment brief”, “Build the API”, and “Try Swagger UI”.
 
+## Terminal screenshot
+
+This is where I’ll add the screenshot of my terminal showing the CRUD requests and the task list after restarting the server.
+
+<!-- Add the screenshot here as assets/a1-crud-api-test.png once it is available in the project folder. -->
+
 ## What I want to improve next
 
 This version is intentionally simple: restarting the server clears any tasks I created. In my SQLite project, I carry the same API idea forward and make the data persist. Before submitting this assignment, I still need to add my own Swagger screenshot and keep the genuine development commits that show how I built it step by step.
