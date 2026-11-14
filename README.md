@@ -1,10 +1,19 @@
-# W2 A1 — Build your first CRUD API
+# My first CRUD API
 
-A beginner-friendly in-memory task API using FastAPI. It includes the five CRUD routes, JSON error bodies, input validation, `/health`, `/stats`, filtering, search, and FastAPI's built-in Swagger UI at `/docs`. Data resets when the server restarts, as required for this assignment.
+For this assignment, I built a small task API with FastAPI. I kept the tasks in memory so I could focus on learning the basic create, read, update, and delete operations before adding a database in a later project. That also means my tasks reset when I restart the server.
 
-## Run
+## What I added
 
-Use Python 3.10 or newer from this folder:
+- Routes to create, list, view, update, and delete tasks
+- A health check at `/health`
+- Optional `done` and `search` filters when listing tasks
+- A `/stats` route for the total, completed, and open task counts
+- Input checks and clear JSON errors for invalid requests or missing task IDs
+- Swagger UI at `/docs`, which I used to explore the API
+
+## How I run it
+
+From this project folder, I set up the environment and start the server:
 
 ```bash
 python -m venv .venv
@@ -13,35 +22,38 @@ pip install -r requirements.txt
 python -m uvicorn main:app --reload
 ```
 
-Open <http://localhost:8000/docs> and try the endpoints. FastAPI also publishes the OpenAPI schema at `/openapi.json`.
+Then I open <http://localhost:8000/docs> to try the routes. The OpenAPI schema is available at <http://localhost:8000/openapi.json>.
 
-## Endpoints
+## Routes
 
-| Method | Path | Success | Purpose |
-| --- | --- | --- | --- |
-| GET | `/` | 200 | API name and version |
-| GET | `/health` | 200 | Liveness |
-| GET | `/tasks` | 200 | List; optional `done` and `search` filters |
-| GET | `/tasks/{id}` | 200 | Read one task |
-| POST | `/tasks` | 201 | Create with `{"title":"Buy milk"}` |
-| PUT | `/tasks/{id}` | 200 | Update `title`, `done`, or both |
-| DELETE | `/tasks/{id}` | 204 | Delete |
-| GET | `/stats` | 200 | Count total, done, and open tasks |
+| Method | Path | What I use it for |
+| --- | --- | --- |
+| GET | `/` | Check the API name and version |
+| GET | `/health` | Check that the API is running |
+| GET | `/tasks` | List tasks, optionally filtering by `done` or `search` |
+| GET | `/tasks/{id}` | Get one task |
+| POST | `/tasks` | Create a task, for example `{"title":"Buy milk"}` |
+| PUT | `/tasks/{id}` | Update a task's `title`, `done` value, or both |
+| DELETE | `/tasks/{id}` | Delete a task |
+| GET | `/stats` | Count all, completed, and open tasks |
 
-Invalid bodies return 400 with `{"error":"..."}`. Unknown IDs return 404 with a JSON error.
+The API returns `400` with a JSON error for invalid input, `404` when a task ID does not exist, and `204` after a successful delete.
 
-## curl checkpoints
+## What I checked
+
+I started the API and tried the health check and CRUD routes with `curl`. The health check returned `200`, creating a task returned `201`, and listing and updating tasks returned `200`. Deleting a task returned `204`.
+
+I also restarted the server and listed the tasks again. My test task was gone, and the three starter tasks had been loaded again. That confirmed the in-memory reset behavior I expected for this version.
+
+For example, I checked the list with:
 
 ```bash
 curl -i http://localhost:8000/tasks
-curl -i http://localhost:8000/tasks/99
-curl -i -X POST http://localhost:8000/tasks -H 'Content-Type: application/json' -d '{"title":"Buy milk"}'
-curl -i -X PUT http://localhost:8000/tasks/1 -H 'Content-Type: application/json' -d '{"done":true}'
-curl -i -X DELETE http://localhost:8000/tasks/1
 ```
 
-After running these yourself, paste a genuine `curl -i` response here and add a Swagger screenshot before submission. Do not commit generated output as though it were observed if you have not run the API.
+After the restart, it returned the three starter tasks: “Read the assignment brief”, “Build the API”, and “Try Swagger UI”.
 
-## Assignment steps
+## What I want to improve next
 
-Suggested commits: hello server; root and health; read endpoints; create with validation; full CRUD; Swagger UI; README and publish. The optional AI rematch should be generated in a separate `ai-version/` folder or branch and compared by you. A public GitHub repo and real stage commits still need to be created for submission.
+This version is intentionally simple: restarting the server clears any tasks I created. In my SQLite project, I carry the same API idea forward and make the data persist. Before submitting this assignment, I still need to add my own Swagger screenshot and keep the genuine development commits that show how I built it step by step.
+
