@@ -55,7 +55,7 @@ After the restart, it returned the three starter tasks: “Read the assignment b
 
 ## Terminal screenshot
 
-This is where I’ll add the screenshot of my terminal showing the CRUD requests and the task list after restarting the server.
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/00621359-e620-4ea8-a526-3bf532b6c19d" />
 
 <!-- Add the screenshot here as assets/a1-crud-api-test.png once it is available in the project folder. -->
 
